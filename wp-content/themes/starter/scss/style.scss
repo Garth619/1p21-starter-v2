@@ -1,0 +1,28 @@
+/*! Css Main Stylesheet isn't meant to update, please use the scss partials in /css/scss */
+/*! Theme Name:Starter
+		Author: Garrett Cullen */
+
+
+
+@import "variables",
+				"reset",
+				"slick",
+				// "lity",
+				"global",
+				"header",
+				"homepage/section_one",
+				"page-default",
+				"page-pa-directory",
+				"page-attbio",
+				"page-meetteam",
+				"page-testimonials",
+				"page-blog",
+				"page-contact",
+				"page-about",
+				"page-results",
+				"page-video",
+				"not-found",
+				"footer";
+				
+
+
