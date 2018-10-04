@@ -12,9 +12,11 @@
     
     // wp_enqueue_style( 'styles', get_template_directory_uri() . '/style.css', '', 2, 'all' ); 
     
+/*
     wp_deregister_script( 'jquery' );
     wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), false, NULL, true );
     wp_enqueue_script( 'jquery' );
+*/
     
     
     // wp_deregister_script( 'wp-embed' );
