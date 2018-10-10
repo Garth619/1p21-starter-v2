@@ -1,4 +1,4 @@
-// @codekit-prepend 'jquery.3.3.1.js'
+// @codekit-prepend 'jquery.1.12.4.js'
 // @codekit-prepend 'waypoints.js'
 // @codekit-prepend 'slick.js'
 // @codekit-prepend 'lity.js'
