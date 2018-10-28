@@ -10,25 +10,20 @@
  function load_my_styles_scripts() {
   
     
-    // wp_enqueue_style( 'styles', get_template_directory_uri() . '/style.css', '', 2, 'all' ); 
+    wp_enqueue_style( 'styles', get_template_directory_uri() . '/style.css', '', 5, 'all' ); 
     
 
-    wp_deregister_script( 'jquery' );
+    // disables jquery then registers it again to go into footer
     
-/*
+    wp_deregister_script( 'jquery' );
     wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), false, NULL, true );
     wp_enqueue_script( 'jquery' );
-*/
+
+		// custom js to fall uner jquery in footer
+		    
+    wp_enqueue_script( 'jquery-addon', get_template_directory_uri() . '/js/custom-min.js', 'jquery', '', true );
     
-    
-    // wp_deregister_script( 'wp-embed' );
-		// wp_deregister_script( 'wp_customize_support_script' );
-     
-    wp_enqueue_script( 'jquery-addon', get_template_directory_uri() . '/js/custom-min.js', '', '', true );
-    
-     
-    
-  }
+ }
  
  add_action( 'wp_enqueue_scripts', 'load_my_styles_scripts', 20 );
  
@@ -38,6 +33,7 @@
 -------------------------------------------------------------- */
  
  
+/*
 function internal_css_print() {
    echo '<style>';
    
@@ -48,6 +44,7 @@ function internal_css_print() {
 
 
 add_action( 'wp_head', 'internal_css_print' );
+*/
 
  
  
