@@ -15,6 +15,7 @@ jQuery(document).ready(function($){
 	 /* Modernizr - check if browser supports webp. 
      --------------------------------------------------------------------------------------- */
     
+    // add data-webp and data-jpg to images in section one and you're gucci
     
      Modernizr.on('webp', function (result) {
 	    
