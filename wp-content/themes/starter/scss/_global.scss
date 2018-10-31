@@ -35,6 +35,17 @@ h1,h2,h3,h4 {
 }
 
 
+.gform_wrapper ul li ::-webkit-input-placeholder {
+  color: #000; }
+.gform_wrapper ul li ::-moz-placeholder {
+  color: #000; }
+ .gform_wrapper ul li :-moz-placeholder {
+   color: #000; }
+ .gform_wrapper ul li :-ms-input-placeholder {
+   color: #000; }
+ .gform_wrapper ul li ::-moz-placeholder {
+    opacity: 1; }
+
 
 @media screen and (max-width: 767px) {
 	
