@@ -138,7 +138,23 @@ jQuery(document).ready(function($){
     // createWaypoint('section-1', null, null, '100%', wistiaLoad, false)
 
 
-
+		
+		/* Live Chat - Call function when script needs to be loaded either by hover, click or waypoints
+   --------------------------------------------------------------------------------------------------- */ 
+   
+   
+   
+   function livechatLoad() {
+	   if(my_data.live_chat) {
+      jQuery.getScript(my_data.live_chat, function(data, textStatus, jqxhr) {
+        console.log('Live Chat load:', textStatus); // Success
+      });
+      // alert( my_data.live_chat);
+      }
+    }
+   
+   
+   // createWaypoint('section_one', null, null, -100, livechatLoad, false);
 
 
 
