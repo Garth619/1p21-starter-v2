@@ -5,53 +5,119 @@
 
 jQuery(document).ready(function($){
 	
-		
 
-		
-				
-		
-		
 	
-	 /* Modernizr - check if browser supports webp. 
+	 /* Modernizr - check if browser supports webp for section_one. 
      --------------------------------------------------------------------------------------- */
     
     // add data-webp and data-jpg to images in section one and you're gucci
     
      Modernizr.on('webp', function (result) {
 	    
-	    jQuery('#section_one img').each(function () {
+	    $('#section_one img').each(function () {
 	    
 				if (result) {
     
-					if (jQuery(this).attr('data-webp')) {
+					if ($(this).attr('data-webp')) {
           
-          	var img = jQuery(this).data('webp');
+          	var img = $(this).data('webp');
           
-						jQuery(this).attr('src', img);
+						$(this).attr('src', img);
         	
         	}
-      
-   			}
+        	
+        }
   
 	 			else {
 		 			
-		 			if (jQuery(this).attr('data-jpg')) {
+		 			if ($(this).attr('data-jpg')) {
           
-          	var img = jQuery(this).data('jpg');
+          	var img = $(this).data('jpg');
           
-						jQuery(this).attr('src', img);
+						$(this).attr('src', img);
         	
         	}
     
-    		
-  	
-  			}
+    		}
   		
   		});
   		
-  		console.log(result);
+  		
+  		// background images (one time load, does not reflect media queries or window width..yet)
+  		
+  		if (result) {
+	  		
+	  		var sectionOne = '#section_one';
+	  		
+	  		if ($(sectionOne).attr('data-webpbg')) {
+		  		
+		  		var imgBg = $(sectionOne).data('webpbg');
+		  		
+		  		$(sectionOne).css('background-image', 'url(' + imgBg + ')');
+		  		
+	  		}
+	  		
+	  	}
+	  	
+	  	
+	  	else {
+		  	
+		  	if ($('#section_one').attr('data-jpgbg')) {
+		  		
+		  		var imgBg = $('#section_one').data('jpgbg');
+		  		
+		  		$('#section_one').css('background-image', 'url(' + imgBg + ')');
+		  		
+	  		}
+		  	
+	  	}
+  		
+			// console.log(result);
 	
 		});
+		
+		
+		
+		/* Load Images - Call function when you reach the a section with images using waypoints
+       BG image - <div data-src=""></div>   ,   Image - <img data-src="">
+      --------------------------------------------------------------------------------------- */
+
+    function loadImages() {
+      
+      // images
+      
+      $('img').each(function () {
+        
+        if ($(this).attr('data-src')) {
+          
+          var img = $(this).data('src');
+          
+          $(this).attr('src', img);
+        
+        }
+      
+      });
+
+      // background images
+      
+      $('div, section').each(function () {
+       
+        if ($(this).attr('data-src')) {
+          
+          var backgroundImg = $(this).data('src');
+          
+          $(this).css('background-image', 'url(' + backgroundImg + ')');
+        
+        }
+      
+      });
+
+      console.log('images loaded');
+    }
+
+    // createWaypoint('section_two', null, null, '100%', loadImages, false);
+
+
 
 
 
@@ -62,12 +128,12 @@ jQuery(document).ready(function($){
 
 
     function createWaypoint(triggerElementId, animatedElement, className, offsetVal, functionName, reverse) {
-      if(jQuery('#' + triggerElementId).length) {
+      if($('#' + triggerElementId).length) {
         var waypoint = new Waypoint({
           element: document.getElementById(triggerElementId),
           handler: function (direction) {
             if (direction === 'down') {
-              jQuery(animatedElement).addClass(className);
+              $(animatedElement).addClass(className);
 
               if (typeof functionName === 'function') {
                 functionName();
@@ -76,7 +142,7 @@ jQuery(document).ready(function($){
 
             } else if (direction === 'up') {
               if (reverse) {
-                jQuery(animatedElement).removeClass(className);
+                $(animatedElement).removeClass(className);
               }
 
             }
@@ -103,13 +169,13 @@ jQuery(document).ready(function($){
     /* Smooth Scroll down to section on click (<a href="#id_of_section_to_be_scrolled_to">)
       --------------------------------------------------------------------------------------- */
 
-    jQuery(function() {
-      jQuery('a[href*="#"]:not([href="#"])').click(function() {
+    $(function() {
+      $('a[href*="#"]:not([href="#"])').click(function() {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-          var target = jQuery(this.hash);
-          target = target.length ? target : jQuery('[name=' + this.hash.slice(1) + ']');
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
           if (target.length) {
-            jQuery('html, body').animate({
+            $('html, body').animate({
               scrollTop: target.offset().top
             }, 1000);
             return false;
@@ -159,45 +225,7 @@ jQuery(document).ready(function($){
 
 
 
-    /* Load Images - Call function when you reach the a section with images using waypoints
-       BG image - <div data-src=""></div>   ,   Image - <img data-src="">
-      --------------------------------------------------------------------------------------- */
-
-    function loadImages() {
-      
-      // images
-      
-      jQuery('img').each(function () {
         
-        if (jQuery(this).attr('data-src')) {
-          
-          var img = jQuery(this).data('src');
-          
-          jQuery(this).attr('src', img);
-        
-        }
-      
-      });
-
-      // background images
-      
-      jQuery('div, section').each(function () {
-       
-        if (jQuery(this).attr('data-src')) {
-          
-          var backgroundImg = jQuery(this).data('src');
-          
-          jQuery(this).css('background-image', 'url(' + backgroundImg + ')');
-        
-        }
-      
-      });
-
-      console.log('images loaded');
-    }
-
-    // createWaypoint('section_two', null, null, '100%', loadImages, false);
-    
     
 
 
