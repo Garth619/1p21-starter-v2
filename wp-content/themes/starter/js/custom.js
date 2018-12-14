@@ -221,6 +221,7 @@ jQuery(document).ready(function($){
    
    
    // createWaypoint('section_one', null, null, -100, livechatLoad, false);
+   // createWaypoint('internal_trigger', null, null, -100, livechatLoad, false);
 
 
 
