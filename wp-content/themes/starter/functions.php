@@ -22,7 +22,7 @@ function load_my_styles_scripts() {
 
 		// custom js to fall uner jquery in footer
 		    
-    wp_register_script( 'jquery-addon', get_template_directory_uri() . '/js/custom-min.js' );
+    wp_register_script( 'jquery-addon', get_template_directory_uri() . '/js/custom-min.js','', 1);
 
 		
 		// Localized PHP Data that needs to be passed onto my custom-min.js file, this grabs the live chat script acf and applies to my lazyload "getScript" function
