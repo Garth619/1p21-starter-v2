@@ -338,7 +338,7 @@ function wpbeginner_numeric_posts_nav() {
  
     /** Previous Post Link */
     if ( get_previous_posts_link() )
-        printf( '<li class="myprev">%s</li>' . "\n", get_previous_posts_link('< prev') );
+        printf( '<li class="myprev">%s</li>' . "\n", get_previous_posts_link('prev') );
  
     /** Link to first page, plus ellipses if necessary */
     if ( ! in_array( 1, $links ) ) {
