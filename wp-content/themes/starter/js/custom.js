@@ -123,40 +123,46 @@ jQuery(document).ready(function($){
 
 
 
-    /* Waypoints
+     /* Wistia - Call function when script needs to be loaded either by hover or waypoints
      --------------------------------------------------------------------------------------- */
 
+    //function wistiaLoad() {
+     // jQuery.getScript('https://fast.wistia.com/assets/external/E-v1.js', function(data, textStatus, jqxhr) {
+        //console.log('wistia load:', textStatus); // Success
+     // });
+   // }
 
-    function createWaypoint(triggerElementId, animatedElement, className, offsetVal, functionName, reverse) {
-      if($('#' + triggerElementId).length) {
-        var waypoint = new Waypoint({
-          element: document.getElementById(triggerElementId),
-          handler: function (direction) {
-            if (direction === 'down') {
-              $(animatedElement).addClass(className);
+    // examples:
 
-              if (typeof functionName === 'function') {
-                functionName();
-                this.destroy();
-              }
+    // jQuery(".banner-box-1").one("mouseenter", function(e){
+    //   wistiaLoad();
+    // });
 
-            } else if (direction === 'up') {
-              if (reverse) {
-                $(animatedElement).removeClass(className);
-              }
-
-            }
-          },
-          offset: offsetVal
-          // Integer or percent
-          // 500 means when element is 500px from the top of the page, the event triggers
-          // 50% means when element is 50% from the top of the page, the event triggers
-        });
-      }
-    }
-
-
-    //createWaypoint('section_two', '#contact_trigger', 'visible', 500, null, true);
+    // createWaypoint('section-1', null, null, '100%', wistiaLoad, false)
+    
+    
+    $('.wistia_embed').click(function () {
+        //make sure to only load if Wistia is not already loaded
+        if (typeof Wistia === 'undefined') {
+            $.getScript("https://fast.wistia.com/assets/external/E-v1.js", function (data, textStatus, jqxhr) {
+                // We got the text but, it's possible parsing could take some time on slower devices. Unfortunately, js parsing does not have
+                // a hook we can listen for. So we need to set an interval to check when it's ready 
+                var interval = setInterval(function () {
+                    if ($('.wistia_embed').attr('id') && window._wq) {
+                        var videoId = $('.wistia_embed').attr('id').split('-')[1];
+                        window._wq = window._wq || [];
+                        _wq.push({
+                            id: videoId,
+                            onReady: function (video) {
+                                $('.wistia_click_to_play').trigger('click');
+                            }
+                        });
+                        clearInterval(interval);
+                    }
+                }, 100)
+            });
+        }
+    })
    
     
     
