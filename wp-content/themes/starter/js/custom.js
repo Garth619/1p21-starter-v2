@@ -192,22 +192,44 @@ jQuery(document).ready(function($){
 
 		
 		
-		 /* Wistia - Call function when script needs to be loaded either by hover or waypoints
+		/* Waypoints
      --------------------------------------------------------------------------------------- */
 
-    function wistiaLoad() {
-      jQuery.getScript('https://fast.wistia.com/assets/external/E-v1.js', function(data, textStatus, jqxhr) {
-        console.log('wistia load:', textStatus); // Success
-      });
+
+    function createWaypoint(triggerElementId, animatedElement, className, offsetVal, functionName, reverse) {
+      if(jQuery('#' + triggerElementId).length) {
+        var waypoint = new Waypoint({
+          element: document.getElementById(triggerElementId),
+          handler: function (direction) {
+            if (direction === 'down') {
+              jQuery(animatedElement).addClass(className);
+
+              if (typeof functionName === 'function') {
+                functionName();
+                this.destroy();
+              }
+
+            } else if (direction === 'up') {
+              if (reverse) {
+                jQuery(animatedElement).removeClass(className);
+              }
+
+            }
+          },
+          offset: offsetVal
+          // Integer or percent
+          // 500 means when element is 500px from the top of the page, the event triggers
+          // 50% means when element is 50% from the top of the page, the event triggers
+        });
+      }
     }
+		
+		
+		
 
-    // examples:
-
-    // jQuery(".banner-box-1").one("mouseenter", function(e){
-    //   wistiaLoad();
-    // });
-
-    // createWaypoint('section-1', null, null, '100%', wistiaLoad, false)
+    // createWaypoint('section_one', '.sticky_header', 'visible', -300, null, true);
+    
+   
 
 
 		
