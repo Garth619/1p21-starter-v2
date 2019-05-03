@@ -430,4 +430,137 @@ function my_wp_nav_menu_objects_sub_menu( $sorted_menu_items, $args ) {
 
 
 
+// subfolder sidebars
+
+
+if(!function_exists('is_descendant_of')){
+  function is_descendant_of($an_ancestor = null,$an_id = null){
+
+    if(!$an_ancestor){
+     
+      return false;
+    }else{
+      $ancestor = $an_ancestor;
+      if(!is_array($ancestor)) {
+        $ancestor = array($ancestor);
+      }
+    }
+    if(!$an_id){
+      global $post;
+      $the_id = $post->ID;
+    }else{
+      $the_id = $an_id;
+    }
+  
+    
+    $ancestors_to_match = get_post_ancestors($the_id);
+    
+    if(count(array_intersect($ancestors_to_match, $ancestor)) > 0 || is_page($ancestor)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
+
+// register sidebars from theme options subdirectory setup
+  //so u dont have to edit the functions anymore everytime a new unique sidebar area is set up :') 
+  if (is_plugin_active('advanced-custom-fields-pro/acf.php')){ //Check to see if ACF is installed
+    if (have_rows('sidebars','option')){
+      while (have_rows('sidebars','option')){ //Loop through sidebar fields to generate custom sidebars
+        the_row();
+        $s_name = get_sub_field( 'sidebar_name', 'option' ); //validated to be unique by  validate_sidebar_name()
+        $s_id = ilaw_id_friendly_text($s_name);
+
+        register_sidebar( array(
+          'name' => $s_name,
+          'id' => $s_id,
+          'description'   => 'Added through Theme Options > Sidebars',
+          'before_widget' => '<div id="%1$s" class="widget %2$s">',
+          'after_widget'  => '</div>',
+          'before_title'  => '<h3 class="widget-title">',
+          'after_title'   => '</h3>'
+        ) );
+      };
+    };
+  };
+
+
+
+
+
+add_filter('acf/validate_value/key=field_5c36777f31fd1', 'ilaw_validate_sidebar_name', 20, 4); // this may be different each time after import check screen option key value
+function ilaw_validate_sidebar_name( $valid, $value, $field, $input ) {
+  // bail early if value is already invalid
+  if( !$valid ) {
+      
+    return $valid;
+    
+  }
+
+  //https://support.advancedcustomfields.com/forums/topic/avoid-duplicate-content-on-repeater-field/
+  // get list of array indexes from $input
+  // [ <= this fixes my IDE, it has problems with unmatched brackets
+  preg_match_all('/\[([^\]]+)\]/', $input, $matches);
+  if (!count($matches[1])) {
+    // this should actually never happen
+    return $valid;
+  }
+  $matches = $matches[1];
+  
+  // walk the acf input to find the repeater and current row      
+  $array = $_POST['acf'];
+  
+  $repeater_key = false;
+  $repeater_value = false;
+  $row_key = false;
+  $row_value = false;
+  $field_key = false;
+  $field_value = false;
+  
+  for ($i=0; $i<count($matches); $i++) {
+    if (isset($array[$matches[$i]])) {
+      $repeater_key = $row_key;
+      $repeater_value = $row_value;
+      $row_key = $field_key;
+      $row_value = $field_value;
+      $field_key = $matches[$i];
+      $field_value = $array[$matches[$i]];
+      if ($field_key == $field['key']) {
+        break;
+      }
+      $array = $array[$matches[$i]];
+    }
+  }
+  
+  if (!$repeater_key) {
+    // this should not happen, but better safe than sorry
+    return $valid;
+  }
+  
+  // look for duplicate values in the repeater
+  foreach ($repeater_value as $index => $row) {
+    if ($index != $row_key && $row[$field_key] == $value) {
+      // this is a different row with the same value
+      $valid = 'this value is not unique';
+      break;
+    }
+  }
+	
+	// return
+	return $valid;
+}
+
+
+
+function ilaw_id_friendly_text($string) {
+
+  $new_id = preg_replace("/[^a-zA-Z_]/","",str_replace(array(' ',), '_', $string)); // Replaces spaces in Sidebar Name to dash
+  $new_id = strtolower( $new_id ); // Transforms edited Sidebar Name to lowercase
+
+  return $new_id;
+}
+
+
 
