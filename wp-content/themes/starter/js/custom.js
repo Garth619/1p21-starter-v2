@@ -303,6 +303,22 @@ $('.sec_three_slider').slick({
  
 */
  
+ 
+ 
+// macy http://macyjs.com/
+
+/*
+var macyInstance = Macy({
+  container: '.testimonials_wrapper',
+	columns: 3,
+	margin:49,
+	breakAt: {
+        1450: 2,
+        1066:1
+  }
+});
+*/
+
 
 	
 

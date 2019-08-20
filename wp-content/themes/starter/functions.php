@@ -49,6 +49,12 @@ function load_my_styles_scripts() {
 		    
     wp_enqueue_script( 'jquery-addon', get_template_directory_uri() . '/js/custom-min.js', 'jquery', '', true );
     
+    if(is_page_template('page-templates/template-testimonials.php')) {
+    
+    	wp_enqueue_script( 'macy', get_template_directory_uri() . '/js/macy.js','', 1);
+    
+    }
+    
     // wp_enqueue_script( 'jquery-mygravity', get_template_directory_uri() . '/js/gravityforms-min.js', 'jquery', '', true );
     
 
