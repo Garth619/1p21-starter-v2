@@ -14,6 +14,12 @@ abstract class Field {
 	private static $fields = [];
 
 	/**
+	 *	@var bool whether the field was already updated
+	 */
+	private $did_update = false;
+
+
+	/**
 	 *	@var array ACF field
 	 */
 	protected $acf_field;
@@ -199,6 +205,9 @@ abstract class Field {
 		if ( $mode === 'bulk' ) {
 			$input_atts['disabled'] = 'disabled';
 		}
+		if ( isset( $this->acf_field['maxlength'] ) && intval( $this->acf_field['maxlength'] ) ) {
+			$input_atts['maxlength'] = intval( $this->acf_field['maxlength'] );
+		}
 
 		if ( ! apply_filters( 'acf_quick_edit_render_' . $this->acf_field['type'], true, $this->acf_field, $post_type ) ) {
 			return;
@@ -320,7 +329,11 @@ abstract class Field {
 	 *
 	 *	@return null
 	 */
-	public function maybe_update( $post_id ) {
+	public function maybe_update( $post_id , $is_quickedit) {
+
+		if ( $is_quickedit && $this->did_update === true ) {
+			return;
+		}
 
 		if ( isset( $this->parent ) ) {
 			return;
@@ -341,6 +354,12 @@ abstract class Field {
 		if ( in_array( $this->dont_change_value, (array) $value ) ) {
 			return;
 		}
+
+		// validate field value
+		if ( ! acf_validate_value( $value, $this->acf_field, sprintf( 'acf[%s]', $param_name ) ) ) {
+			return;
+		}
+
 		$this->update( $value, $post_id );
 	}
 
@@ -353,7 +372,7 @@ abstract class Field {
 	 *	@return null
 	 */
 	public function update( $value, $post_id ) {
-		error_log("update {$this->acf_field['key']} {$post_id} ".var_export( $value ) );
+		$this->did_update = true;
 		update_field( $this->acf_field['key'], $value, $post_id );
 	}
 }
