@@ -2,6 +2,7 @@
 // @codekit-prepend 'slick.js'
 // @codekit-prepend 'lity.js'
 // @codekit-prepend 'modernizr-webp.js'
+// @codekit-prepend 'underscore.js'
 
 jQuery(document).ready(function($){
 	
