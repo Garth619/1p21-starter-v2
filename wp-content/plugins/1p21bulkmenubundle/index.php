@@ -3,7 +3,7 @@
 Plugin Name: Nav Menu ACF +  Bulk Edit + Nav Menu Bulk Edit Support
 Author: Sam Zabala
 Plugin URI: https://www.ilawyermarketing.com/
-Version: 2.0.3
+Version: 2.0.4
 Description: Requires ACF, to work. sets up ACF field type for nav fields. Adds bulk editing functionality for native acf and nav menu field. <b>PLEASE READ <i>fordev.txt</i></b> SHOULD ONE OF THE PLUGINS REQUIRE AN UPDATE
 Copyright: Yes
 */

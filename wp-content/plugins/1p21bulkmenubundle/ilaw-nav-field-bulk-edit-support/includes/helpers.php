@@ -22,33 +22,42 @@ function _ilaw_sm_slug_text($string) {
 
 
 
-	function _ilaw_sm__ilaw_sm_is_descendant_of($an_ancestor = null,$an_id = null){
-  
-	  if(!$an_ancestor){
+function _ilaw_sm_is_descendant_of($an_ancestor = null,$an_id = null){
+
+	if(!$an_ancestor){
 		// no use checking kung wala namang iproprovide na ninuno
 		return false;
-	  }else{
+	}else{
 		$ancestor = $an_ancestor;
 		if(!is_array($ancestor)) {
-		  $ancestor = array($ancestor);
+		$ancestor = array($ancestor);
 		}
-	  }
-	  if(!$an_id){
+	}
+	if(!$an_id){
 		global $post;
 		$the_id = $post->ID;
-	  }else{
+	}else{
 		$the_id = $an_id;
-	  }
-	
-	  //list all the current page's kwan... ancestor
-	  $ancestors_to_match = get_post_ancestors($the_id);
-	  
-	  if(count(array_intersect($ancestors_to_match, $ancestor)) > 0 || is_page($ancestor)){
-		return true;
-	  }else{
-		return false;
-	  }
 	}
+	
+	//list all the current page's kwan... ancestor
+	$ancestors_to_match = get_post_ancestors($the_id);
+	
+	if(count(array_intersect($ancestors_to_match, $ancestor)) > 0 || is_page($ancestor)){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+function _ilaw_sm_id_friendly_text($string) {
+
+	$new_id = preg_replace("/[^a-zA-Z_]/","",str_replace(array(' ',), '_', $string)); // Replaces spaces in Sidebar Name to dash
+	$new_id = strtolower( $new_id ); // Transforms edited Sidebar Name to lowercase
+
+	return $new_id;
+}
 
 /********************************************************************************************
 * open for the pooblic

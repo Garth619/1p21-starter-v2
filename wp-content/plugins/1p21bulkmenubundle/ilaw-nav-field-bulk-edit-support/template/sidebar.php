@@ -13,7 +13,7 @@ if ( get_field('sm_custom_menu') ){ ?>
 		$title_class = get_field('sm_title_class','option');
 		$title_tag = (get_field('sm_title_tag','option')) ? get_field('sm_title_tag','option') : bulk_get_default('title_tag');
 		$menu_depth = (get_field('sm_depth','option') ) ? get_field('sm_depth','option') : bulk_get_default('menu_depth');
-		$default_title = ( the_field('sm_default_title','option') ) ?  the_field('sm_default_title','option') : bulk_get_default('default_title');
+		$default_title = ( get_field('sm_default_title','option') ) ?  get_field('sm_default_title','option') : bulk_get_default('default_title');
 	?>
 
 		<!-- custom sidebar -->
@@ -64,7 +64,7 @@ if ( get_field('sm_custom_menu') ){ ?>
 			foreach($row['pages'] as $sub_row):
 				the_row();
 
-				if( $sub_row['page'] && is_descendant_of($sub_row['page']) &&  $no_sidebar_yet ){
+				if( $sub_row['page'] && _ilaw_sm_is_descendant_of($sub_row['page']) &&  $no_sidebar_yet ){
 
 					echo '<!-- ancestor default: '.$template_sidebar_id.' -->';
 					dynamic_sidebar( $template_sidebar_id );

@@ -10,7 +10,7 @@ $GLOBALS['_ilaw'] = array();
 $GLOBALS['_ilaw']['defaults'] = array(
 	'title_tag' => 'h3',
 	'menu_depth' => 0,
-	'default_title' => ''
+	'default_title' => 'Useful Links'
 );
 
 

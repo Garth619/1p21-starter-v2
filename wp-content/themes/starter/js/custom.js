@@ -120,7 +120,7 @@ jQuery(document).ready(function($){
 
 
 
-
+		
 
 
 
@@ -328,6 +328,24 @@ var macyInstance = Macy({
 
 
 $("ul > li.menu-item-has-children > a[href='#']").removeAttr("href");
+
+
+// current sidebar
+
+
+/*
+
+var pgurl = window.location.href;
+	
+	$(".sidebar_box ul li").each(function(){
+  
+  if($(this).find('a').attr("href") == pgurl)
+    
+    $(this).addClass("active");
+	
+	})
+*/
+
 
 
   
