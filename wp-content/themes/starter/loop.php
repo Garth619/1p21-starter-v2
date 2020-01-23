@@ -36,11 +36,9 @@
 
 <?php endif; ?>
 
-<div class="pagination">
+<?php wpbeginner_numeric_posts_nav(); ?>
 
-	<?php wpbeginner_numeric_posts_nav(); ?>
 
-</div><!-- pagination -->
 
 
 <!--
